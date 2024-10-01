@@ -89,8 +89,12 @@ public class ScoreEndpoint {
 		return result;
 	}
 
-	@ApiMethod(name = "myscores", httpMethod = HttpMethod.GET)
+	@ApiMethod(name = "myscores/{name}", httpMethod = HttpMethod.GET)
 	public List<Entity> myscores(@Named("name") String name) {
+		if (name == null || name.isEmpty()) {
+			throw new IllegalArgumentException("Name parameter cannot be null or empty");
+		}
+
 		Query q = new Query("Score").setFilter(new FilterPredicate("name", FilterOperator.EQUAL, name)).addSort("score",
 				SortDirection.DESCENDING);
         //Query q = new Query("Score").setFilter(new FilterPredicate("name", FilterOperator.EQUAL, name));
