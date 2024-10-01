@@ -89,7 +89,7 @@ public class ScoreEndpoint {
 		return result;
 	}
 
-	@ApiMethod(name = "myscores/{name}", httpMethod = HttpMethod.GET)
+	@ApiMethod(name = "myscores", path="myscores/{name}", httpMethod = HttpMethod.GET)
 	public List<Entity> myscores(@Named("name") String name) {
 		if (name == null || name.isEmpty()) {
 			throw new IllegalArgumentException("Name parameter cannot be null or empty");
