@@ -67,17 +67,28 @@ var DiceView={
  
 var Score = {
 	    list: [],
+        personalList: [],
 	    loadList: function() {
-	        return m.request({
-	            method: "GET",
-	            url: "_ah/api/myApi/v1/topscores/"
-	        })
-	        .then(function(result) {
-	            Score.list = result.items
-	        	console.log("got:",result.items)
-	        	// m.redraw(true) 
-	        })
-	    },
+            return m.request({
+                method: "GET",
+                url: "_ah/api/myApi/v1/topscores/"
+            })
+                .then(function (result) {
+                    Score.list = result.items
+                    console.log("got:", result.items)
+                    // m.redraw(true)
+                })
+        },
+        loadPersonalList: function() {
+            return m.request({
+                method: "GET",
+                url: `_ah/api/myApi/v1/myscores?name=${DiceGame.name}`
+            })
+                .then(function (result){
+                    Score.personalList = result.items
+                    console.log("got:", result.items)
+                })
+        },
 	    save: function(score,name) {
 	    	console.log("saving...",Score.current)
 	        return m.request({
@@ -110,6 +121,27 @@ var ScoreView = {
 	   ])
 	 ])
   }
+}
+
+var MyScoreView = {
+    oninit: Score.loadPersonalList(),
+    view: function() {
+        return m('div', [
+            m('div',{class:'subtitle'},"Top 10 Scores"),
+            m('table', {class:'table is-striped'},[
+                m('tr', [
+                    m('th', {width:"20px"}, "Name"),
+                    m('th', {width:"50px"}, "Score"),
+                ]),
+                Score.personalList.map(function(item) {
+                    return m("tr", [
+                        m('td', m('label', item.properties.name)),
+                        m('td', m('label', item.properties.score)),
+                    ])
+                })
+            ])
+        ])
+    }
 }
 
 var Hello = {
