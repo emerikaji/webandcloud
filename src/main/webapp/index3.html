@@ -127,7 +127,7 @@ var MyScoreView = {
     oninit: Score.loadPersonalList(),
     view: function() {
         return m('div', [
-            m('div',{class:'subtitle'},"Top 10 Scores"),
+            m('div',{class:'subtitle'},"My Top 10 Scores"),
             m('table', {class:'table is-striped'},[
                 m('tr', [
                     m('th', {width:"20px"}, "Name"),
@@ -151,6 +151,7 @@ var Hello = {
            m('div',{class: 'tile is-ancestor'},[
                m("div", {class: 'tile'}, m('div',{class:'tile is-child box'},m(DiceView))),
                m("div", {class: 'tile'}, m('div',{class:'tile is-child box'},m(ScoreView))),
+               m("div", {class: 'tile'}, m('div',{class:'tile is-child box'},m(MyScoreView))),
            ])
        ])
    }
