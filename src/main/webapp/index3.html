@@ -10,10 +10,6 @@
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 
     <script src="https://unpkg.com/mithril/mithril.js"></script>
-
-    <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="927375242383-t21v9ml38tkh2pr30m4hqiflkl3jfohl.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
 
@@ -30,7 +26,7 @@
                 this.d1 = Math.floor((Math.random() * 5) + 1);
                 this.d2 = Math.floor((Math.random() * 5) + 1);
                 if (this.d1 + this.d2 == 7) {
-                this.score += 10;
+                    this.score += 10;
                 }
                 this.turn++;
             } else {
@@ -123,7 +119,7 @@ var ScoreView = {
 	        .then(function(result) {
 	            MyScore.list = result.items
 	        	console.log("got:",result.items)
-	        	// m.redraw(true) 
+	        	// m.redraw(true)
 	        })
 	    }
 	}
@@ -149,33 +145,17 @@ var MyScoreView = {
   }
 }
 
-    function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
-
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-    }
-
 var Hello = {
-   view: function() {
-   	return m('div', {class:'container'}, [
-           m("h1", {class: 'title'}, 'The Dice Game'),
-           m('div',{class: 'tile is-ancestor'},[
-               m("div", {class: 'tile'}, m('div',{class:'tile is-child box'},m(DiceView))),
-               m("div", {class: 'tile'}, m('div',{class:'tile is-child box'},m(ScoreView))),
-			   m("div", {class: 'tile'}, m('div',{class:'tile is-child box'},m(MyScoreView))),
-               m("div", {class: 'g-signin2', onsuccess: onSignIn}),
-           ])
-       ])
-   }
+    view: function() {
+    return m('div', {class:'container'}, [
+             m("h1", {class: 'title'}, 'The Dice Game'),
+             m('div',{class: 'tile is-ancestor'},[
+                 m("div", {class: 'tile'}, m('div',{class:'tile is-child box'}, m(DiceView))),
+                 m("div", {class: 'tile'}, m('div',{class:'tile is-child box'}, m(ScoreView))),
+                 m("div", {class: 'tile'}, m('div',{class:'tile is-child box'}, m(MyScoreView))),
+             ])
+        ])
+    }
 }
 
 
