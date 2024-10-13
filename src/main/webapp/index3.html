@@ -28,7 +28,7 @@ var DiceGame={
   turn : 0,
   d1 : 1,
   d2 : 1,
-  name : 'spock',
+  name : 'please login to play',
   score : 0,
 
   play: function() {
@@ -179,7 +179,7 @@ function handleCredentialResponse(response) {
 var Hello = {
    view: function() {
    	return m('div', {class:'container'}, [
-           m("h1", {class: 'title'}, 'The Stupid Dice Game'),
+           m("h1", {class: 'title'}, 'I alone am the Honored Dice Game'),
            m('div',{class: 'tile is-ancestor'},[
            m("div", {class: 'tile'}, m('div',{class:'tile is-child box'},m(LoginView))),
            m("div", {class: 'tile'}, m('div',{class:'tile is-child box'},m(DiceView))),
@@ -188,6 +188,8 @@ var Hello = {
        ])
    }
 }
+
+
 m.mount(document.body, Hello)	
 
 
