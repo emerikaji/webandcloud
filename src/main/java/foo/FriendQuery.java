@@ -1,11 +1,7 @@
 package foo;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +33,41 @@ public class FriendQuery extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		DatastoreService datastore =
+				DatastoreServiceFactory.getDatastoreService();
 
+		// Exercice 1
+
+		try {
+			response.getWriter().print("Age de f0 : " + datastore.get(new Entity("Friend", "f0").getKey()).getProperty("age"));
+		} catch (EntityNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		// Exercice 2
+
+		Query q2 =
+				new Query("Friend")
+						.setFilter(new FilterPredicate("age", FilterOperator.EQUAL, "30"));
+
+		List<Entity> result2 =
+				datastore.prepare(q2).asList(FetchOptions.Builder.withLimit(5));
+
+		response.getWriter().print("Utilisateurs ages de 30 ans : "+ result2.toString());
+
+		// Exercice 3
+
+		Query q3 =
+				new Query("Friend")
+						.setFilter(new FilterPredicate("name", FilterOperator.GREATER_THAN_OR_EQUAL, "f14"))
+						.setFilter(new FilterPredicate("name", FilterOperator.LESS_THAN, "f15"));
+
+		List<Entity> result3 =
+				datastore.prepare(q3).asList(null);
+
+		response.getWriter().print("Utilisateurs qui commencent par f14 : "+ result3.toString());
+
+		/*
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 
@@ -59,7 +89,6 @@ public class FriendQuery extends HttpServlet {
 			Entity e1=datastore.get(e.getKey());
 			response.getWriter().print("<li> Get F0:" + e1.getProperty("firstName"));
 		} catch (EntityNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -131,6 +160,6 @@ public class FriendQuery extends HttpServlet {
 		response.getWriter().print("<h2> time(Q2) </h2>");		
 		response.getWriter().print("q2:"+(t3-t2));
 
-		
+		*/
 	}
 }
