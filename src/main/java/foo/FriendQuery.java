@@ -63,7 +63,7 @@ public class FriendQuery extends HttpServlet {
 						.setFilter(new FilterPredicate("name", FilterOperator.LESS_THAN, "f15"));
 
 		List<Entity> result3 =
-				datastore.prepare(q3).asList(null);
+				datastore.prepare(q3).asList(FetchOptions.Builder.withDefaults());
 
 		response.getWriter().print("Utilisateurs qui commencent par f14 : "+ result3.toString());
 
